@@ -102,6 +102,31 @@ border-radius:12px;
 border:1px solid #22c55e;
 }
 
+/* ===== UPDATED "I HAVE PAID" BUTTON ===== */
+#payment button.payBtn{
+background:#22c55e;
+color:black;
+font-weight:bold;
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-size:1rem;
+box-shadow:0 0 15px #22c55e;
+animation:pulse 1.5s infinite;
+transition:0.3s;
+}
+#payment button.payBtn:hover{
+background:#16a34a;
+box-shadow:0 0 25px #22c55e;
+}
+@keyframes pulse{
+0%{box-shadow:0 0 10px #22c55e;}
+50%{box-shadow:0 0 25px #22c55e;}
+100%{box-shadow:0 0 10px #22c55e;}
+}
+
 /* TRUST */
 .trust{
 background:rgba(17,24,39,0.9);
@@ -124,6 +149,26 @@ border:1px solid rgba(34,197,94,0.3);
 }
 .trustCard img{
 width:40px;
+}
+
+/* RULES & RECHARGE */
+.rules, .recharge{
+background:rgba(17,24,39,0.9);
+padding:15px;
+margin-top:20px;
+border-radius:12px;
+border:1px solid #22c55e;
+}
+.rules h2, .recharge h2{
+color:#22c55e;
+text-align:center;
+margin-bottom:10px;
+}
+.rules ul, .recharge ol{
+padding-left:20px;
+}
+.rules li, .recharge li{
+margin-bottom:6px;
 }
 
 /* FOOTER */
@@ -166,6 +211,42 @@ border-radius:50px;
 color:black;
 font-weight:bold;
 }
+
+/* ✅ SUCCESS POPUP */
+#successPopup{
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:#22c55e;
+color:black;
+padding:12px 20px;
+border-radius:10px;
+font-weight:bold;
+display:none;
+box-shadow:0 0 15px #22c55e;
+animation:fadeUp 0.5s ease;
+z-index:9999;
+}
+@keyframes fadeUp{
+0%{opacity:0; transform:translateY(-20px);}
+100%{opacity:1; transform:translateY(0);}
+}
+
+/* ✅ LIVE BUYERS POPUP */
+#livePopup{
+position:fixed;
+bottom:90px;
+left:10px;
+background:#111827cc;
+padding:10px;
+border-radius:12px;
+font-size:12px;
+animation:fadeIn 0.5s ease;
+display:none;
+z-index:9999;
+}
+@keyframes fadeIn{0%{opacity:0;}100%{opacity:1;}}
 </style>
 </head>
 
@@ -183,7 +264,7 @@ font-weight:bold;
 
 <div id="products" class="grid"></div>
 
-<!-- ✅ ONLY CHANGE: QR ADDED -->
+<!-- PAYMENT SECTION -->
 <div id="payment">
 <h2>Complete Payment</h2>
 <p id="payText"></p>
@@ -192,15 +273,20 @@ font-weight:bold;
 <p><b>Name:</b> RUHEL AHMED</p>
 
 <div style="text-align:center; margin:15px 0;">
-<img src="qr.jpg" style="width:200px; border-radius:12px; box-shadow:0 0 15px #22c55e;">
+<img src="qr.jpg" id="qrImage" style="width:200px; border-radius:12px; box-shadow:0 0 15px #22c55e;">
 <p style="margin-top:5px;">Scan & Pay</p>
+<!-- DOWNLOAD QR -->
+<button onclick="downloadQR()" style="margin-top:8px; padding:8px 12px; border:none; border-radius:10px; background:#22c55e; color:black; font-weight:bold; cursor:pointer; box-shadow:0 0 10px #22c55e; transition:0.3s;">
+Download QR
+</button>
 </div>
 
 <button onclick="copyUPI()">Copy UPI</button>
 <br><br>
-<button onclick="order()">I HAVE PAID</button>
+<button class="payBtn" onclick="order()">I HAVE PAID</button>
 </div>
 
+<!-- TRUST SECTION -->
 <div class="trust">
 <h2>Why Trust Us</h2>
 <div class="trustGrid">
@@ -211,46 +297,65 @@ font-weight:bold;
 </div>
 </div>
 
+<!-- RULES SECTION -->
+<div class="rules">
+<h2>📜 Store Rules</h2>
+<ul>
+<li>Only purchase from this official store.</li>
+<li>Do not share payment screenshots publicly.</li>
+<li>Use correct Game ID and Nickname while ordering.</li>
+<li>Refunds are not provided unless confirmed by admin.</li>
+<li>Keep WhatsApp contact active for updates.</li>
+</ul>
+</div>
+
+<!-- HOW TO RECHARGE -->
+<div class="recharge">
+<h2>⚡ How to Recharge</h2>
+<ol>
+<li>Choose the diamonds or pass you want from the products above.</li>
+<li>Click "Buy" and note the payment details.</li>
+<li>Scan the QR code or copy the UPI ID to complete payment.</li>
+<li>Click "I HAVE PAID" and submit order to WhatsApp + Google Form.</li>
+<li>Wait for admin confirmation and diamonds delivery in-game.</li>
+</ol>
+</div>
+
+<!-- FOOTER -->
 <div class="footer">
 <h2>Z MLBB STORE</h2>
-
 <div class="banner">
 <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e">
 </div>
-
 <div class="footerGrid">
 <div class="footerBox">
 <h3>Contact</h3>
 <p>WhatsApp: 8730832384</p>
 <p>UPI: 8730832384@nyes</p>
 </div>
-
 <div class="footerBox">
 <h3>Info</h3>
 <p>Instant Delivery</p>
 <p>Safe Payment</p>
 <p>No Refund</p>
 </div>
-
 <div class="footerBox">
 <h3>Support</h3>
 <p>24/7 Available</p>
 <p>Fast Response</p>
 </div>
 </div>
-
 <p>© 2026 Z MLBB STORE</p>
-</div>
-
 </div>
 
 <a href="https://wa.me/918730832384" class="float">Chat</a>
 
+<!-- SUCCESS & LIVE BUYERS -->
+<div id="successPopup">Payment Successful ✔</div>
+<div id="livePopup"></div>
+
 <script>
-particlesJS("particles-js", {
-particles:{number:{value:60},color:{value:"#22c55e"},
-size:{value:3},move:{enable:true,speed:2}}
-});
+particlesJS("particles-js",{particles:{number:{value:60},color:{value:"#22c55e"},size:{value:3},move:{enable:true,speed:2}}});
 
 let products=[
 ["55 Diamonds",78],["86 Diamonds",120],["110 Diamonds",152],
@@ -264,7 +369,6 @@ let products=[
 ];
 
 let grid=document.getElementById("products");
-
 products.forEach(p=>{
 let c=document.createElement("div");
 c.className="card";
@@ -274,8 +378,6 @@ grid.appendChild(c);
 });
 
 let item="",price="";
-
-/* ✅ RESELLER TRACKING */
 let ref = new URLSearchParams(window.location.search).get("ref") || "direct";
 
 function buy(i,p){
@@ -291,17 +393,23 @@ navigator.clipboard.writeText("8730832384@nyes");
 alert("Copied");
 }
 
-/* ✅ UPDATED ORDER FUNCTION (GOOGLE FORM + WHATSAPP) */
+// DOWNLOAD QR
+function downloadQR() {
+const qr = document.getElementById("qrImage");
+const link = document.createElement("a");
+link.href = qr.src;
+link.download = "Z_MLBB_QR.png";
+link.click();
+}
+
+/* ORDER FUNCTION */
 function order(){
+showSuccess();
 
 // SEND DATA TO GOOGLE FORM
 fetch("https://docs.google.com/forms/d/e/1FAIpQLScKnuJa-kIcUVnbLNtZrbXc9_Q9F6eUE4M4-lcrJT621sijLg/formResponse", {
-method: "POST",
-mode: "no-cors",
-headers: {
-"Content-Type": "application/x-www-form-urlencoded"
-},
-body: `entry.1244239675=${item}&entry.1496258138=${price}&entry.1081756014=${ref}`
+method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},
+body:`entry.1244239675=${item}&entry.1496258138=${price}&entry.1081756014=${ref}`
 });
 
 // WHATSAPP MESSAGE
@@ -313,9 +421,26 @@ Reseller: ${ref}
 Txn ID:
 Game ID:
 Nick:`;
-
 window.open(`https://wa.me/918730832384?text=${encodeURIComponent(msg)}`);
 }
+
+// PAYMENT SUCCESS & LIVE BUYERS
+function showSuccess(){
+let p=document.getElementById("successPopup");
+p.style.display="block";
+setTimeout(()=>{p.style.display="none";},2000);
+}
+
+let liveNames=["Rohit","Amit","Sneha","Ananya","Karan","Priya","Rahul","Simran","Arjun","Divya"];
+let liveItems=["55 Diamonds","86 Diamonds","110 Diamonds","172 Diamonds","Weekly Pass","Twilight Pass"];
+setInterval(()=>{
+let name=liveNames[Math.floor(Math.random()*liveNames.length)];
+let item=liveItems[Math.floor(Math.random()*liveItems.length)];
+let popup=document.getElementById("livePopup");
+popup.innerText=`🔥 ${name} just bought ${item}`;
+popup.style.display="block";
+setTimeout(()=>{popup.style.display="none";},3000);
+},5000);
 
 function scrollProducts(){
 document.getElementById("products").scrollIntoView({behavior:'smooth'});
