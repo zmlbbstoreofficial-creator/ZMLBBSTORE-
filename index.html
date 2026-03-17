@@ -275,6 +275,9 @@ grid.appendChild(c);
 
 let item="",price="";
 
+/* ✅ RESELLER TRACKING */
+let ref = new URLSearchParams(window.location.search).get("ref") || "direct";
+
 function buy(i,p){
 item=i;
 price=p;
@@ -288,8 +291,29 @@ navigator.clipboard.writeText("8730832384@nyes");
 alert("Copied");
 }
 
+/* ✅ UPDATED ORDER FUNCTION (GOOGLE FORM + WHATSAPP) */
 function order(){
-let msg=`ORDER\nItem: ${item}\nPrice: ₹${price}\nTxn ID:\nGame ID:\nNick:`;
+
+// SEND DATA TO GOOGLE FORM
+fetch("https://docs.google.com/forms/d/e/1FAIpQLScKnuJa-kIcUVnbLNtZrbXc9_Q9F6eUE4M4-lcrJT621sijLg/formResponse", {
+method: "POST",
+mode: "no-cors",
+headers: {
+"Content-Type": "application/x-www-form-urlencoded"
+},
+body: `entry.1244239675=${item}&entry.1496258138=${price}&entry.1081756014=${ref}`
+});
+
+// WHATSAPP MESSAGE
+let msg=`ORDER
+Item: ${item}
+Price: ₹${price}
+Reseller: ${ref}
+
+Txn ID:
+Game ID:
+Nick:`;
+
 window.open(`https://wa.me/918730832384?text=${encodeURIComponent(msg)}`);
 }
 
