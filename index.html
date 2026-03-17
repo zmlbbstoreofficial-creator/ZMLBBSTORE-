@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Z MLBB STORE</title>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+<style>
+body{
+margin:0;
+font-family:sans-serif;
+color:white;
+overflow-x:hidden;
+}
+
+/* PARTICLES */
+#particles-js{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-2;
+background:#020617;
+}
+
+/* GAMING OVERLAY */
+body::after{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:repeating-linear-gradient(
+0deg,
+rgba(255,255,255,0.02),
+rgba(255,255,255,0.02) 1px,
+transparent 1px,
+transparent 3px
+);
+z-index:-1;
+}
+
+/* HERO */
+.hero{
+text-align:center;
+margin-bottom:20px;
+}
+.hero h1{
+color:#22c55e;
+text-shadow:0 0 10px #22c55e;
+}
+.hero button{
+background:#22c55e;
+border:none;
+padding:12px;
+border-radius:10px;
+font-weight:bold;
+box-shadow:0 0 10px #22c55e;
+transition:0.3s;
+}
+.hero button:hover{
+box-shadow:0 0 20px #22c55e;
+}
+
+/* PRODUCTS */
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+.card{
+background:rgba(30,41,59,0.8);
+backdrop-filter:blur(10px);
+padding:12px;
+border-radius:12px;
+text-align:center;
+transition:0.3s;
+border:1px solid rgba(34,197,94,0.2);
+}
+.card:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px #22c55e;
+border:1px solid #22c55e;
+}
+.buy{
+background:#22c55e;
+border:none;
+padding:8px;
+border-radius:8px;
+box-shadow:0 0 10px #22c55e;
+}
+
+/* PAYMENT */
+#payment{
+display:none;
+background:rgba(17,24,39,0.9);
+padding:15px;
+margin-top:20px;
+border-radius:12px;
+border:1px solid #22c55e;
+}
+
+/* TRUST */
+.trust{
+background:rgba(17,24,39,0.9);
+padding:15px;
+margin-top:20px;
+border-radius:12px;
+text-align:center;
+border:1px solid #22c55e;
+}
+.trustGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+.trustCard{
+background:#1f2937;
+padding:12px;
+border-radius:10px;
+border:1px solid rgba(34,197,94,0.3);
+}
+.trustCard img{
+width:40px;
+}
+
+/* FOOTER */
+.footer{
+background:rgba(2,6,23,0.9);
+padding:20px;
+margin-top:30px;
+border-top:1px solid #22c55e;
+text-align:center;
+}
+
+.banner img{
+width:100%;
+border-radius:10px;
+margin:10px 0;
+filter:brightness(0.8);
+}
+
+.footerGrid{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:10px;
+}
+
+.footerBox{
+background:#1e293b;
+padding:10px;
+border-radius:10px;
+border:1px solid rgba(34,197,94,0.2);
+}
+
+/* FLOAT */
+.float{
+position:fixed;
+bottom:20px;
+right:15px;
+background:#25D366;
+padding:12px 15px;
+border-radius:50px;
+color:black;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<div style="padding:10px;">
+
+<div class="hero">
+<h1>Z MLBB STORE</h1>
+<p>Fast Delivery | Trusted | Best Prices</p>
+<button onclick="scrollProducts()">View Products</button>
+</div>
+
+<div id="products" class="grid"></div>
+
+<!-- ✅ ONLY CHANGE: QR ADDED -->
+<div id="payment">
+<h2>Complete Payment</h2>
+<p id="payText"></p>
+
+<p><b>UPI:</b> 8730832384@nyes</p>
+<p><b>Name:</b> RUHEL AHMED</p>
+
+<div style="text-align:center; margin:15px 0;">
+<img src="qr.jpg" style="width:200px; border-radius:12px; box-shadow:0 0 15px #22c55e;">
+<p style="margin-top:5px;">Scan & Pay</p>
+</div>
+
+<button onclick="copyUPI()">Copy UPI</button>
+<br><br>
+<button onclick="order()">I HAVE PAID</button>
+</div>
+
+<div class="trust">
+<h2>Why Trust Us</h2>
+<div class="trustGrid">
+<div class="trustCard"><img src="https://cdn-icons-png.flaticon.com/128/3064/3064197.png"><p>Secure Payment</p></div>
+<div class="trustCard"><img src="https://cdn-icons-png.flaticon.com/128/1828/1828640.png"><p>Instant Delivery</p></div>
+<div class="trustCard"><img src="https://cdn-icons-png.flaticon.com/128/724/724664.png"><p>24/7 Support</p></div>
+<div class="trustCard"><img src="https://cdn-icons-png.flaticon.com/128/1828/1828884.png"><p>1000+ Orders</p></div>
+</div>
+</div>
+
+<div class="footer">
+<h2>Z MLBB STORE</h2>
+
+<div class="banner">
+<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e">
+</div>
+
+<div class="footerGrid">
+<div class="footerBox">
+<h3>Contact</h3>
+<p>WhatsApp: 8730832384</p>
+<p>UPI: 8730832384@nyes</p>
+</div>
+
+<div class="footerBox">
+<h3>Info</h3>
+<p>Instant Delivery</p>
+<p>Safe Payment</p>
+<p>No Refund</p>
+</div>
+
+<div class="footerBox">
+<h3>Support</h3>
+<p>24/7 Available</p>
+<p>Fast Response</p>
+</div>
+</div>
+
+<p>© 2026 Z MLBB STORE</p>
+</div>
+
+</div>
+
+<a href="https://wa.me/918730832384" class="float">Chat</a>
+
+<script>
+particlesJS("particles-js", {
+particles:{number:{value:60},color:{value:"#22c55e"},
+size:{value:3},move:{enable:true,speed:2}}
+});
+
+let products=[
+["55 Diamonds",78],["86 Diamonds",120],["110 Diamonds",152],
+["172 Diamonds",236],["165 Diamonds",226],["257 Diamonds",337],
+["275 Diamonds",362],["343 Diamonds",460],["429 Diamonds",576],
+["514 Diamonds",677],["565 Diamonds",737],["600 Diamonds",794],
+["706 Diamonds",920],["878 Diamonds",1147],["963 Diamonds",1250],
+["1049 Diamonds",1367],["1135 Diamonds",1482],["1412 Diamonds",1826],
+["2195 Diamonds",2761],["2901 Diamonds",3654],["3688 Diamonds",4581],
+["5532 Diamonds",6914],["9288 Diamonds",11481],["Weekly Pass",144]
+];
+
+let grid=document.getElementById("products");
+
+products.forEach(p=>{
+let c=document.createElement("div");
+c.className="card";
+c.innerHTML=`<b>${p[0]}</b><p>&#8377;${p[1]}</p>
+<button class="buy" onclick="buy('${p[0]}',${p[1]})">Buy</button>`;
+grid.appendChild(c);
+});
+
+let item="",price="";
+
+function buy(i,p){
+item=i;
+price=p;
+document.getElementById("payment").style.display="block";
+document.getElementById("payText").innerHTML=i+" - &#8377;"+p;
+window.scrollTo({top:1000,behavior:'smooth'});
+}
+
+function copyUPI(){
+navigator.clipboard.writeText("8730832384@nyes");
+alert("Copied");
+}
+
+function order(){
+let msg=`ORDER\nItem: ${item}\nPrice: ₹${price}\nTxn ID:\nGame ID:\nNick:`;
+window.open(`https://wa.me/918730832384?text=${encodeURIComponent(msg)}`);
+}
+
+function scrollProducts(){
+document.getElementById("products").scrollIntoView({behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>
