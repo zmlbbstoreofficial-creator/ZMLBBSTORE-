@@ -102,7 +102,7 @@ border-radius:12px;
 border:1px solid #22c55e;
 }
 
-/* ===== UPDATED "I HAVE PAID" BUTTON ===== */
+/* UPDATED "I HAVE PAID" BUTTON */
 #payment button.payBtn{
 background:#22c55e;
 color:black;
@@ -212,7 +212,7 @@ color:black;
 font-weight:bold;
 }
 
-/* ✅ SUCCESS POPUP */
+/* SUCCESS POPUP */
 #successPopup{
 position:fixed;
 top:20px;
@@ -233,7 +233,7 @@ z-index:9999;
 100%{opacity:1; transform:translateY(0);}
 }
 
-/* ✅ LIVE BUYERS POPUP */
+/* LIVE BUYERS POPUP */
 #livePopup{
 position:fixed;
 bottom:90px;
@@ -275,7 +275,6 @@ z-index:9999;
 <div style="text-align:center; margin:15px 0;">
 <img src="qr.jpg" id="qrImage" style="width:200px; border-radius:12px; box-shadow:0 0 15px #22c55e;">
 <p style="margin-top:5px;">Scan & Pay</p>
-<!-- DOWNLOAD QR -->
 <button onclick="downloadQR()" style="margin-top:8px; padding:8px 12px; border:none; border-radius:10px; background:#22c55e; color:black; font-weight:bold; cursor:pointer; box-shadow:0 0 10px #22c55e; transition:0.3s;">
 Download QR
 </button>
@@ -299,7 +298,7 @@ Download QR
 
 <!-- RULES SECTION -->
 <div class="rules">
-<h2>📜 Store Rules</h2>
+<h2> Store Rules</h2>
 <ul>
 <li>Only purchase from this official store.</li>
 <li>Do not share payment screenshots publicly.</li>
@@ -311,7 +310,7 @@ Download QR
 
 <!-- HOW TO RECHARGE -->
 <div class="recharge">
-<h2>⚡ How to Recharge</h2>
+<h2> How to Recharge</h2>
 <ol>
 <li>Choose the diamonds or pass you want from the products above.</li>
 <li>Click "Buy" and note the payment details.</li>
@@ -345,13 +344,13 @@ Download QR
 <p>Fast Response</p>
 </div>
 </div>
-<p>© 2026 Z MLBB STORE</p>
+<p>� 2026 Z MLBB STORE</p>
 </div>
 
 <a href="https://wa.me/918730832384" class="float">Chat</a>
 
 <!-- SUCCESS & LIVE BUYERS -->
-<div id="successPopup">Payment Successful ✔</div>
+<div id="successPopup">Payment Successful </div>
 <div id="livePopup"></div>
 
 <script>
@@ -393,7 +392,6 @@ navigator.clipboard.writeText("8730832384@nyes");
 alert("Copied");
 }
 
-// DOWNLOAD QR
 function downloadQR() {
 const qr = document.getElementById("qrImage");
 const link = document.createElement("a");
@@ -402,20 +400,15 @@ link.download = "Z_MLBB_QR.png";
 link.click();
 }
 
-/* ORDER FUNCTION */
 function order(){
 showSuccess();
-
-// SEND DATA TO GOOGLE FORM
 fetch("https://docs.google.com/forms/d/e/1FAIpQLScKnuJa-kIcUVnbLNtZrbXc9_Q9F6eUE4M4-lcrJT621sijLg/formResponse", {
 method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},
 body:`entry.1244239675=${item}&entry.1496258138=${price}&entry.1081756014=${ref}`
 });
-
-// WHATSAPP MESSAGE
 let msg=`ORDER
 Item: ${item}
-Price: ₹${price}
+Price: ${price}
 Reseller: ${ref}
 
 Txn ID:
@@ -424,22 +417,29 @@ Nick:`;
 window.open(`https://wa.me/918730832384?text=${encodeURIComponent(msg)}`);
 }
 
-// PAYMENT SUCCESS & LIVE BUYERS
 function showSuccess(){
 let p=document.getElementById("successPopup");
 p.style.display="block";
 setTimeout(()=>{p.style.display="none";},2000);
 }
 
-let liveNames=["Rohit","Amit","Sneha","Ananya","Karan","Priya","Rahul","Simran","Arjun","Divya"];
-let liveItems=["55 Diamonds","86 Diamonds","110 Diamonds","172 Diamonds","Weekly Pass","Twilight Pass"];
+// LIVE BUYERS NAMES + RANDOM ITEM AMOUNT
+let liveNames=[
+"Rohit","Amit","Sneha","Ananya","Karan","Priya","Simran","Arjun",
+"Divya","Shivam","Neha","Vikram","Riya","Aditya","Sakshi","Rahul","Tanvi","Ishaan","Meera","Kabir"
+];
+let liveItems=[
+["55 Diamonds",78],["86 Diamonds",120],["110 Diamonds",152],
+["172 Diamonds",236],["Weekly Pass",144],["Twilight Pass",770]
+];
+
 setInterval(()=>{
 let name=liveNames[Math.floor(Math.random()*liveNames.length)];
 let item=liveItems[Math.floor(Math.random()*liveItems.length)];
 let popup=document.getElementById("livePopup");
-popup.innerText=`🔥 ${name} just bought ${item}`;
+popup.innerText=` ${name} just bought ${item[0]} (${item[1]})`;
 popup.style.display="block";
-setTimeout(()=>{popup.style.display="none";},3000);
+setTimeout(()=>{popup.style.display="none";},4000);
 },5000);
 
 function scrollProducts(){
