@@ -280,6 +280,22 @@ transform:rotate(25deg);
 transform:translateY(-8px) scale(1.05);
 box-shadow:0 15px 40px rgba(0,0,0,0.7);
 }
+#backBtn{
+background:#0f172a;
+color:white;
+border:1px solid #22c55e;
+padding:10px 15px;
+border-radius:10px;
+cursor:pointer;
+margin-bottom:10px;
+box-shadow:0 0 10px #22c55e;
+transition:0.3s;
+}
+
+#backBtn:hover{
+background:#22c55e;
+color:black;
+}
 </style>
 </head>
 
@@ -316,7 +332,13 @@ box-shadow:0 15px 40px rgba(0,0,0,0.7);
 </div>
 
 <!-- PRODUCTS GRID -->
-<div id="products" class="grid" style="display:none;"></div>
+<div id="productsSection" style="display:none;">
+  
+  <button onclick="goBack()" id="backBtn">⬅ Back</button>
+  
+  <div id="products" class="grid"></div>
+
+</div>
 
 <!-- PAYMENT SECTION -->
 <div id="payment">
@@ -427,7 +449,7 @@ let ref = new URLSearchParams(window.location.search).get("ref") || "direct";
 // OPEN CATEGORY
 function openCategory(cat){
 document.getElementById("homePage").style.display="none";
-document.getElementById("products").style.display="grid";
+document.getElementById("productsSection").style.display="block";
 grid.innerHTML="";
 let list = cat==="diamonds"? diamondProducts : weeklyProducts;
 list.forEach(p=>{
@@ -449,6 +471,12 @@ function buy(i,p){item=i;price=p;document.getElementById("payment").style.displa
 function copyUPI(){navigator.clipboard.writeText("8730832384@nyes");alert("Copied");}
 function downloadQR(){const qr=document.getElementById("qrImage");const link=document.createElement("a");link.href=qr.src;link.download="Z_MLBB_QR.png";link.click();}
 function order(){showSuccess();fetch("https://docs.google.com/forms/d/e/1FAIpQLScKnuJa-kIcUVnbLNtZrbXc9_Q9F6eUE4M4-lcrJT621sijLg/formResponse",{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:`entry.1244239675=${item}&entry.1496258138=${price}&entry.1081756014=${ref}`});let msg=`ORDER\nItem: ${item}\nPrice: ₹${price}\nReseller: ${ref}\n\nTxn ID:\nGame ID:\nNick:`;window.open(`https://wa.me/918730832384?text=${encodeURIComponent(msg)}`);}
+function goBack(){
+document.getElementById("productsSection").style.display="none";
+document.getElementById("homePage").style.display="flex";
+document.getElementById("payment").style.display="none";
+window.scrollTo({top:0,behavior:'smooth'});
+}
 function showSuccess(){let p=document.getElementById("successPopup");p.style.display="block";setTimeout(()=>{p.style.display="none";},2000);}
 
 // LIVE BUYERS
