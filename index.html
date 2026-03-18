@@ -221,6 +221,65 @@ border:1px solid rgba(34,197,94,0.3);
 @keyframes fadeUp{0%{opacity:0; transform:translateY(-20px);}100%{opacity:1; transform:translateY(0);}}
 #livePopup{position:fixed;bottom:90px;left:10px;background:#111827cc;padding:10px;border-radius:12px;font-size:12px;animation:fadeIn 0.5s ease;display:none;z-index:9999;}
 @keyframes fadeIn{0%{opacity:0;}100%{opacity:1;}}
+.categoryCard{
+width:200px;
+height:220px;
+background:#0a0a0a;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:0.4s;
+position:relative;
+overflow:hidden;
+}
+
+/* INNER CONTENT */
+.cardInner{
+text-align:center;
+z-index:2;
+}
+
+.categoryCard img{
+width:80px;
+margin-bottom:15px;
+filter:drop-shadow(0 0 15px #22c55e);
+}
+
+.categoryCard h2{
+margin:0;
+font-size:1.4rem;
+letter-spacing:1px;
+}
+
+.categoryCard span{
+font-size:0.8rem;
+opacity:0.7;
+}
+
+/* HOVER EFFECT (premium feel) */
+.categoryCard::before{
+content:"";
+position:absolute;
+width:200%;
+height:200%;
+background:linear-gradient(120deg,transparent,#22c55e,transparent);
+top:-50%;
+left:-50%;
+opacity:0;
+transition:0.5s;
+}
+
+.categoryCard:hover::before{
+opacity:0.2;
+transform:rotate(25deg);
+}
+
+.categoryCard:hover{
+transform:translateY(-8px) scale(1.05);
+box-shadow:0 15px 40px rgba(0,0,0,0.7);
+}
 </style>
 </head>
 
@@ -235,8 +294,25 @@ border:1px solid rgba(34,197,94,0.3);
   <h1>Welcome to Z MLBB STORE</h1>
   <p>Fast Delivery | Trusted | Best Prices</p>
   <div id="floatingIcons"></div>
-  <button class="categoryBtn" onclick="openCategory('diamonds')">Diamond Recharges (India)</button>
-  <button class="categoryBtn" onclick="openCategory('weekly')">Weekly Passes</button>
+  <div style="display:flex; gap:25px; flex-wrap:wrap; justify-content:center;">
+
+  <div class="categoryCard" onclick="openCategory('diamonds')">
+    <div class="cardInner">
+      <img src="diamond.png">
+      <h2>DIAMONDS</h2>
+      <span>RECHARGE</span>
+    </div>
+  </div>
+
+  <div class="categoryCard" onclick="openCategory('weekly')">
+    <div class="cardInner">
+      <img src="weekly.png">
+      <h2>WEEKLY PASS</h2>
+      <span>BEST VALUE</span>
+    </div>
+  </div>
+
+</div>
 </div>
 
 <!-- PRODUCTS GRID -->
@@ -329,19 +405,19 @@ particlesJS("particles-js",{particles:{number:{value:60},color:{value:"#22c55e"}
 
 // PRODUCT LISTS
 let diamondProducts=[
-["55 Diamonds",78],["86 Diamonds",120],["110 Diamonds",152],
-["172 Diamonds",236],["165 Diamonds",226],["257 Diamonds",337],
-["275 Diamonds",362],["343 Diamonds",460],["429 Diamonds",576],
-["514 Diamonds",677],["565 Diamonds",737],["600 Diamonds",794],
-["706 Diamonds",920],["878 Diamonds",1147],["963 Diamonds",1250],
-["1049 Diamonds",1367],["1135 Diamonds",1482],["1412 Diamonds",1826],
-["2195 Diamonds",2761],["2901 Diamonds",3654],["3688 Diamonds",4581],
-["5532 Diamonds",6914],["9288 Diamonds",11481]
+["55 Diamonds",78,"diamond.png"],["86 Diamonds",120,"diamond.png"],["110 Diamonds",152,"diamond.png"],
+["172 Diamonds",236,"diamond.png"],["165 Diamonds",226,"diamond.png"],["257 Diamonds",337,"diamond.png"],
+["275 Diamonds",362,"diamond.png"],["343 Diamonds",460,"diamond.png"],["429 Diamonds",576,"diamond.png"],
+["514 Diamonds",677,"diamond.png"],["565 Diamonds",737,"diamond.png"],["600 Diamonds",794,"diamond.png"],
+["706 Diamonds",920,"diamond.png"],["878 Diamonds",1147,"diamond.png"],["963 Diamonds",1250,"diamond.png"],
+["1049 Diamonds",1367,"diamond.png"],["1135 Diamonds",1482,"diamond.png"],["1412 Diamonds",1826,"diamond.png"],
+["2195 Diamonds",2761,"diamond.png"],["2901 Diamonds",3654,"diamond.png"],["3688 Diamonds",4581,"diamond.png"],
+["5532 Diamonds",6914,"diamond.png"],["9288 Diamonds",11481,"diamond.png"],
 ];
 let weeklyProducts=[
-["1x Weekly Pass",144],["2x Weekly Pass",288],["3x Weekly Pass",432],
-["4x Weekly Pass",576],["5x Weekly Pass",720],["6x Weekly Pass",864],
-["7x Weekly Pass",1008],["8x Weekly Pass",1152],["9x Weekly Pass",1296],["10x Weekly Pass",1440]
+["1x Weekly Pass",144,"weekly.png"],["2x Weekly Pass",288,"weekly.png"],["3x Weekly Pass",432,"weekly.png"],
+["4x Weekly Pass",576,"weekly.png"],["5x Weekly Pass",720,"weekly.png"],["6x Weekly Pass",864,"weekly.png"],
+["7x Weekly Pass",1008,"weekly.png"],["8x Weekly Pass",1152,"weekly.png"],["9x Weekly Pass",1296,"weekly.png"],["10x Weekly Pass",1440,"weekly.png"]
 ];
 
 let grid=document.getElementById("products");
@@ -357,8 +433,12 @@ let list = cat==="diamonds"? diamondProducts : weeklyProducts;
 list.forEach(p=>{
 let c=document.createElement("div");
 c.className="card";
-c.innerHTML=`<b>${p[0]}</b><p>&#8377;${p[1]}</p>
-<button class="buy" onclick="buy('${p[0]}',${p[1]})">Buy</button>`;
+c.innerHTML=`
+<img src="${p[2]}" style="width:80px; margin-bottom:10px;">
+<b>${p[0]}</b>
+<p>₹${p[1]}</p>
+<button class="buy" onclick="buy('${p[0]}',${p[1]})">Buy</button>
+`;
 grid.appendChild(c);
 });
 window.scrollTo({top:0,behavior:'smooth'});
