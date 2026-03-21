@@ -331,6 +331,14 @@ color:black;
 </div>
 </div>
 
+<!-- PRODUCTS GRID -->
+<div id="productsSection" style="display:none;">
+  
+  <button onclick="goBack()" id="backBtn">⬅ Back</button>
+  
+  <div id="products" class="grid"></div>
+
+</div>
 
 <!-- PAYMENT SECTION -->
 <div id="payment">
@@ -408,7 +416,7 @@ color:black;
 <p>Fast Response</p>
 </div>
 </div>
-<p>� 2026 Z MLBB STORE</p>
+<p>© 2026 Z MLBB STORE</p>
 </div>
 
 <a href="https://wa.me/918730832384" class="float">Chat</a>
@@ -417,28 +425,6 @@ color:black;
 <div id="livePopup"></div>
 
 <script>
-<!-- Firebase CDN -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyDZ_bSKYDXzsFh3KCpedEdmcTiUyzTq4SE",
-  authDomain: "z-mlbb-store.firebaseapp.com",
-  projectId: "z-mlbb-store",
-  storageBucket: "z-mlbb-store.firebasestorage.app",
-  messagingSenderId: "375273316921",
-  appId: "1:375273316921:web:f5d83a562d82b9d414e3e8"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-// Services
-const auth = firebase.auth();
-const db = firebase.firestore();
-
 // PARTICLES
 particlesJS("particles-js",{particles:{number:{value:60},color:{value:"#22c55e"},size:{value:3},move:{enable:true,speed:2}}});
 
@@ -475,7 +461,7 @@ c.className="card";
 c.innerHTML=`
 <img src="${p[2]}" style="width:80px; margin-bottom:10px;">
 <b>${p[0]}</b>
-<p>${p[1]}</p>
+<p>₹${p[1]}</p>
 <button class="buy" onclick="buy('${p[0]}',${p[1]})">Buy</button>
 `;
 grid.appendChild(c);
@@ -489,7 +475,7 @@ item=i;
 price=p;
 
 document.getElementById("payment").style.display="block";
-document.getElementById("payText").innerHTML=i+" - "+p;
+document.getElementById("payText").innerHTML=i+" - ₹"+p;
 
 // SCROLL SMOOTHLY
 document.getElementById("payment").scrollIntoView({behavior:"smooth"});
@@ -497,21 +483,31 @@ document.getElementById("payment").scrollIntoView({behavior:"smooth"});
 function copyUPI(){navigator.clipboard.writeText("8730832384@nyes");alert("Copied");}
 function downloadQR(){const qr=document.getElementById("qrImage");const link=document.createElement("a");link.href=qr.src;link.download="Z_MLBB_QR.png";link.click();}
 function order(){
-  let uid = prompt("Enter Game UID");
-  let server = prompt("Enter Server");
-  let nick = prompt("Enter Nickname");
 
-  db.collection("orders").add({
-    item: item,
-    price: price,
-    uid: uid,
-    server: server,
-    nick: nick,
-    status: "pending",
-    time: new Date()
-  });
+let uid = document.getElementById("uid").value;
+let server = document.getElementById("server").value;
+let nick = document.getElementById("nick").value;
 
-  showSuccess();
+if(!uid || !server || !nick){
+alert("Fill all details bro");
+return;
+}
+
+showSuccess();
+
+let msg=`ORDER DETAILS
+
+Item: ${item}
+Price: ₹${price}
+
+UID: ${uid}
+Server: ${server}
+Nick: ${nick}
+
+Txn ID:`;
+
+// WhatsApp redirect
+window.open(`https://wa.me/918730832384?text=${encodeURIComponent(msg)}`);
 }
 function goBack(){
 document.getElementById("productsSection").style.display="none";
@@ -521,41 +517,21 @@ window.scrollTo({top:0,behavior:'smooth'});
 }
 function showSuccess(){
 let p=document.getElementById("successPopup");
-p.innerText="Order Sent Successfully ";
+p.innerText="Order Sent Successfully 🚀";
 p.style.display="block";
 
 setTimeout(()=>{
 p.style.display="none";
 },3000);
 }
-function signup(){
-  let email = document.getElementById("email").value;
-  let pass = document.getElementById("password").value;
 
-  auth.createUserWithEmailAndPassword(email, pass)
-  .then(()=>{
-    alert("Signup Success ✅");
-  })
-  .catch(err=>alert(err.message));
-}
-
-function login(){
-  let email = document.getElementById("email").value;
-  let pass = document.getElementById("password").value;
-
-  auth.signInWithEmailAndPassword(email, pass)
-  .then(()=>{
-    alert("Login Success ✅");
-  })
-  .catch(err=>alert(err.message));
-}
 // LIVE BUYERS
 let liveNames=["Rohit","Amit","Sneha","Ananya","Karan","Priya","Simran","Arjun","Divya","Shivam","Neha","Vikram","Riya","Aditya","Sakshi","Rahul","Tanvi","Ishaan","Meera","Kabir"];
 let liveItems=diamondProducts.concat(weeklyProducts);
-setInterval(()=>{let name=liveNames[Math.floor(Math.random()*liveNames.length)];let item=liveItems[Math.floor(Math.random()*liveItems.length)];let popup=document.getElementById("livePopup");popup.innerText=`${name} just bought ${item[0]} (${item[1]})`;popup.style.display="block";setTimeout(()=>{popup.style.display="none";},4000);},5000);
+setInterval(()=>{let name=liveNames[Math.floor(Math.random()*liveNames.length)];let item=liveItems[Math.floor(Math.random()*liveItems.length)];let popup=document.getElementById("livePopup");popup.innerText=`${name} just bought ${item[0]} (₹${item[1]})`;popup.style.display="block";setTimeout(()=>{popup.style.display="none";},4000);},5000);
 
 // FLOATING ICONS
-function createFloatingIcons(){const container=document.getElementById("floatingIcons");const icons=["",""];for(let i=0;i<15;i++){let icon=document.createElement("div");icon.className="floatingIcon";icon.style.left=Math.random()*100+"%";icon.style.fontSize=(20+Math.random()*30)+"px";icon.style.animationDuration=(8+Math.random()*6)+"s";icon.innerText=icons[Math.floor(Math.random()*icons.length)];container.appendChild(icon);}}
+function createFloatingIcons(){const container=document.getElementById("floatingIcons");const icons=["💎","🎟️"];for(let i=0;i<15;i++){let icon=document.createElement("div");icon.className="floatingIcon";icon.style.left=Math.random()*100+"%";icon.style.fontSize=(20+Math.random()*30)+"px";icon.style.animationDuration=(8+Math.random()*6)+"s";icon.innerText=icons[Math.floor(Math.random()*icons.length)];container.appendChild(icon);}}
 createFloatingIcons();
 </script>
 
