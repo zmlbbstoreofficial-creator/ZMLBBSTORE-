@@ -347,7 +347,7 @@ color:black;
 <p><b>UPI:</b> 8730832384@nyes</p>
 <p><b>Name:</b> RUHEL AHMED</p>
 <div style="text-align:center; margin:15px 0;">
-<img src="qr.jpg" id="qrImage" style="width:200px; border-radius:12px; box-shadow:0 0 15px #22c55e;">
+<img src="" id="qrImage" style="width:200px; border-radius:12px; box-shadow:0 0 15px #22c55e;">
 <p style="margin-top:5px;">Scan & Pay</p>
 <button onclick="downloadQR()" style="margin-top:8px; padding:8px 12px; border:none; border-radius:10px; background:#22c55e; color:black; font-weight:bold; cursor:pointer; box-shadow:0 0 10px #22c55e; transition:0.3s;">Download QR</button>
 </div>
@@ -470,18 +470,36 @@ window.scrollTo({top:0,behavior:'smooth'});
 }
 
 // BUY + PAYMENT
-function buy(i,p){
-item=i;
-price=p;
+function buy(i, p){
+    item = i;
+    price = p;
 
-document.getElementById("payment").style.display="block";
-document.getElementById("payText").innerHTML=i+" - ₹"+p;
+    document.getElementById("payment").style.display = "block";
+    document.getElementById("payText").innerHTML = i + " - ₹" + p;
+
+    // GENERATE QR CODE DYNAMICALLY
+    let upiID = "8730832384@nyes";
+    let name = "RUHEL AHMED";
+    let amount = p;
+    let upiString = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR`;
+    let qrURL = `https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=${encodeURIComponent(upiString)}`;
+    document.getElementById("qrImage").src = qrURL;
+
+    // SCROLL SMOOTHLY
+    document.getElementById("payment").scrollIntoView({behavior:"smooth"});
+}
 
 // SCROLL SMOOTHLY
 document.getElementById("payment").scrollIntoView({behavior:"smooth"});
 }
 function copyUPI(){navigator.clipboard.writeText("8730832384@nyes");alert("Copied");}
-function downloadQR(){const qr=document.getElementById("qrImage");const link=document.createElement("a");link.href=qr.src;link.download="Z_MLBB_QR.png";link.click();}
+function downloadQR(){
+    const qr = document.getElementById("qrImage");
+    const link = document.createElement("a");
+    link.href = qr.src;
+    link.download = `Z_MLBB_QR_${item.replace(/\s/g,'_')}.png`;
+    link.click();
+}
 function order(){
 
 let uid = document.getElementById("uid").value;
